@@ -1,0 +1,3 @@
+Menu
+
+<%= request.getAttribute("menu") %>
