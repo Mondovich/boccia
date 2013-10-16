@@ -16,19 +16,17 @@
 	<!-- ========== Global Forward Definitions ============================== -->
 	
 	<global-forwards>
-		
+		<forward name="welcome" path="/home.do"/>
 	</global-forwards>
 	
 	<!-- ========== Action Mapping Definitions ============================== -->
 	
 	<action-mappings>
-		<action path="/" type="com.nttdata.boccia.MenuAction">
-			<forward name="success" path="/jsp/menu.jsp" />
+	
+		<action path="/home" type="com.nttdata.boccia.MenuAction">
+			<forward name="success" path="/jsp/home.jsp" />
 		</action>
 		
-		<action path="/menu" type="com.nttdata.boccia.MenuAction">
-			<forward name="success" path="/jsp/menu.jsp" />
-		</action>
 	</action-mappings>
 	
 	<!-- ========== Message resources and Validation settings =============== -->
