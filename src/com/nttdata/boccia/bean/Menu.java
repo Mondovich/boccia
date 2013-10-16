@@ -13,6 +13,11 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class Menu {
 	
+	@Override
+	public String toString() {
+		return "Menu [key=" + key + ", date=" + date + ", primi=" + primi
+				+ ", secondi=" + secondi + ", contorni=" + contorni + "]";
+	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
