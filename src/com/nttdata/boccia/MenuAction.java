@@ -1,11 +1,12 @@
 package com.nttdata.boccia;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,8 +17,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.nttdata.boccia.bean.Menu;
 import com.nttdata.boccia.em.EMF;
+import com.nttdata.boccia.model.dao.MenuDao;
+import com.nttdata.boccia.model.dao.MenuDaoImpl;
+import com.nttdata.boccia.model.entity.Menu;
 
 
 public class MenuAction extends Action {
@@ -34,33 +37,57 @@ public class MenuAction extends Action {
 		
 		ActionForward forward = mapping.findForward("success");
 		
-		Query q = em.createQuery("select from Menu m where m.date = :date");
-		q.setParameter("date", new Date());
+		Calendar today = new GregorianCalendar();
+		today.set(Calendar.HOUR_OF_DAY, 0);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+		today.set(Calendar.MILLISECOND, 0);
+		
+		log.info(today);
+		
+		MenuDao dao = new MenuDaoImpl();
 
 		log.info("MENU!");
 		
-		Menu menu = null;
+		List<Menu> menus = null;
 		try {
-			menu = (Menu) q.getSingleResult();
+			menus = dao.findAll();
 			
-			log.info(menu.toString());
+			if (menus.size() == 0) {
+				log.info("No menu found.");
+				
+				Menu menu = createMenu(today, dao);
+				
+				menus = new ArrayList<Menu>();
+				menus.add(menu);
+			}
+			
 		} catch (NoResultException e) {
-			log.info("No menu found.");
+			log.info("NoResultException");
 			
-			menu = new Menu();
-			menu.setDate(new Date());
+			Menu menu = createMenu(today, dao);
 			
-			ArrayList<String> primi = new ArrayList<String>();
-			primi.add("Pasta");
-			menu.setPrimi(primi);
+			menus = new ArrayList<Menu>();
+			menus.add(menu);
 			
-			em.persist(menu);
 		} 
 		
 		request.setAttribute("ciao", "Ciao");
-		request.setAttribute("menu", menu);
+		request.setAttribute("menu", menus.get(0));
 		
 		return forward;
+	}
+
+	private Menu createMenu(Calendar today, MenuDao dao) {
+		Menu menu = new Menu();
+		menu.setDate(today.getTime());
+		
+		ArrayList<String> primi = new ArrayList<String>();
+		primi.add("Pasta");
+		menu.setPrimi(primi);
+		
+		dao.save(menu);
+		return menu;
 	}
 
 }
