@@ -5,4 +5,4 @@ gaeDeployDialogSettings=
 gaeHrdEnabled=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
-ormEnhancementInclusions=src/com/nttdata/boccia/bean/
+ormEnhancementInclusions=src/com/nttdata/boccia/model/entity/

@@ -1,4 +1,4 @@
-package com.nttdata.boccia.bean;
+package com.nttdata.boccia.model.entity;
 
 import java.util.Date;
 import java.util.List;
@@ -13,17 +13,10 @@ import com.google.appengine.api.datastore.Key;
 @Entity
 public class Menu {
 	
-	@Override
-	public String toString() {
-		return "Menu [key=" + key + ", date=" + date + ", primi=" + primi
-				+ ", secondi=" + secondi + ", contorni=" + contorni + "]";
-	}
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
-	
 	private Date date;
-	
 	private List<String> primi;
 	private List<String> secondi;
 	private List<String> contorni;
@@ -59,5 +52,9 @@ public class Menu {
 		this.contorni = contorni;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Menu [key=" + key + ", date=" + date + ", primi=" + primi
+				+ ", secondi=" + secondi + ", contorni=" + contorni + "]";
+	}
 }
