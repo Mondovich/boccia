@@ -23,11 +23,11 @@
 	
 	<action-mappings>
 	
-		<action path="/home" type="com.nttdata.boccia.MenuAction">
+		<action path="/home" type="com.nttdata.boccia.HomeAction">
 			<forward name="success" path="/jsp/home.jsp" />
 		</action>
 		
-		<action path="/menu/admin/create" type="com.nttdata.boccia.CreateMenuAction">
+		<action path="/menu/admin/create" type="com.nttdata.boccia.MenuAction">
 			<forward name="success" path="/jsp/menu/create.jsp" />
 		</action>
 		
