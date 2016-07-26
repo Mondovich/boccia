@@ -29,7 +29,7 @@ public class HomeAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
-		log.info("MenuAction.execute");
+		log.info("MenuAction.execute ");
 		
 		ActionForward forward = mapping.findForward("success");
 		MenuDao dao = new MenuDaoImpl();
